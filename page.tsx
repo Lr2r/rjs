@@ -1,27 +1,22 @@
-import { resolve } from "path";
-
 export const metadata = {
   title: "Home",
 };
 
-const URL = "https://books-api.nomadcoders.workers.dev/lists";
+const URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
 
 async function getMovies() {
-  // await new Promise((resolve)=> setTimeout(resolve, 10000));
   const response = await fetch(URL);
   const json = await response.json();
-  return json.results;
+  return json;
 }
 
 export default async function HomePage() {
   const movies = await getMovies();
   return (
     <div>
-      {movies.map((movie: any, index: number) => (
-        <li key={index}>
-          {movie.list_name}
-        </li>
-      ))}
+      {movies.map((movie: any, index: number) => {
+        return <div key={index}>{movie.title}</div>;
+      })}
     </div>
   );
 }
